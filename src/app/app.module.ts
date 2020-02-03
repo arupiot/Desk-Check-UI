@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MapComponent } from './pages/map/map.component';
 import { PageSelectComponent } from './pages/page-select/page-select.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {
+  MatButtonModule
+ } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,9 @@ import { PageSelectComponent } from './pages/page-select/page-select.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
