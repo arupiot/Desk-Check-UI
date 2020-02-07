@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageSelectComponent } from './page-select.component';
+import { FloorplanComponent } from './floorplan.component';
 
-describe('PageSelectComponent', () => {
-  let component: PageSelectComponent;
-  let fixture: ComponentFixture<PageSelectComponent>;
+describe('FloorplanComponent', () => {
+  let component: FloorplanComponent;
+  let fixture: ComponentFixture<FloorplanComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageSelectComponent ]
+      declarations: [ FloorplanComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageSelectComponent);
+    fixture = TestBed.createComponent(FloorplanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
