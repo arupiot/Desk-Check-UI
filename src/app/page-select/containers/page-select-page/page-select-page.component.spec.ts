@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { PageSelectPageComponent } from './page-select-page.component';
 
-describe('MapComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('PageSelectPageComponent', () => {
+  let component: PageSelectPageComponent;
+  let fixture: ComponentFixture<PageSelectPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ PageSelectPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(PageSelectPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
