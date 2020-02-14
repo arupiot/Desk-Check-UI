@@ -1,0 +1,25 @@
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.border {
+    border: 0.5em solid #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10em;
+    width: 30em;
+}
+.mat-raised-button {
+    width: 40%;
+    height: 40%;
+    line-height: 10px;
+    min-height: 10px;
+    vertical-align: center;
+    font-size: 30px;
+    padding: 0 0;
+    margin: 5%;
+
+  }

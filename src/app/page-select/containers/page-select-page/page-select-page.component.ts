@@ -11,5 +11,8 @@ export class PageSelectPageComponent implements OnInit {
 
   ngOnInit() {
   }
+  handleClick(route: String) {
+    console.log("Click!", route);
+  }
 
 }
