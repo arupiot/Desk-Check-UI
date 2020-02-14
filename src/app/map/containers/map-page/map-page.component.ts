@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DeskServiceService } from '../../../core/services/deskService/desk-service.service';
+import { Desk } from '../../../core/models/Desk.model';
 
 @Component({
   selector: 'app-map-page',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private deskService: DeskServiceService
+    ) { }
 
   ngOnInit() {
+    this.deskService.getAll().subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
   }
 
 }
