@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
   MatButtonModule
- } from '@angular/material';
+ } from '@angular/material/button';
 
 
 // modules
