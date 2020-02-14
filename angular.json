@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "Desk-Check-UI"
+  "defaultProject": "Desk-Check-UI",
+  "cli": {
+    "analytics": "f05345cb-008a-4440-a22e-ee331fd45818"
+  }
 }
