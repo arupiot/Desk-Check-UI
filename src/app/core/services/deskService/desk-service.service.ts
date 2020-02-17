@@ -14,7 +14,7 @@ export class DeskServiceService {
     private http: HttpClient,
   ) { }
 
-  baseurl: string = "https://localhost:5001/desk/";
+  baseurl: string = "https://localhost:44363/desk/";
 
   getAll(): Observable<Desk[]>{
     const headerDict = {
