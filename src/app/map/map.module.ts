@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+  MatButtonModule
+} from '@angular/material/button';
+
 // modules
 import { MapRoutingModule } from './map-routing.module';
 
@@ -16,6 +20,7 @@ import { FloorplanComponent } from './components/floorplan/floorplan.component';
   imports: [
     CommonModule,
     MapRoutingModule,
+    MatButtonModule,
   ]
 })
 export class MapModule { }

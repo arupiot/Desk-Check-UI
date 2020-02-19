@@ -14,6 +14,10 @@ export class MapPageComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.getDesks();
+  }
+
+  getDesks() {
     this.deskService.getAll().subscribe(res => {
       console.log(res);
     }, err => {
