@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
+import { HeaderComponent } from './core/components/header/header.component';
+import { ArupLogoComponent } from './core/components/arup-logo/arup-logo.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    ArupLogoComponent,
   ],
   imports: [
     BrowserModule,
