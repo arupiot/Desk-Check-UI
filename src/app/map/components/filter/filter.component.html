@@ -1,5 +1,5 @@
 
-<h4>Basic mat-select</h4>
+<!-- <h4>Basic mat-select</h4>
 <mat-form-field>
   <mat-label>Favorite Brands</mat-label>
   <mat-select [formControl]="brandControl">
@@ -9,19 +9,64 @@
   </mat-select>
   <mat-error *ngIf="brandControl.hasError('required')">Please choose a brand</mat-error>
 </mat-form-field>
-<p>You selected: {{selected}}</p>
+<p>You selected: {{selected}}</p> -->
 
-<h4>Basic native select</h4>
+<div class="all">
+<h4>Select Floor:</h4>
 <mat-form-field>
-  <mat-label>Brands</mat-label>
-  <select matNativeControl required [(ngModel)]="selectedValue">
-    <option *ngFor="let brand of brands" [value]="brand.value">
-      {{ brand.viewValue }}
+  <mat-label>Floors</mat-label>
+  <select matSelectControl required [(ngModel)]="selectedFloorValue">
+    <option *ngFor="let floor of floors" [value]="floor.value">
+      {{ floor.viewValue }}
     </option>
   </select>
   <mat-error *ngIf="selectFormControl.hasError('required')">
     This field is required
   </mat-error>
 </mat-form-field>
-<p>You selected: {{selectedValue}}</p>
+<!-- <p>You selected: {{selectedFloorValue}}</p> -->
 
+<div *ngIf="isFM===true">You are a member of FM. 
+<h4>Temperature:</h4>
+<mat-form-field>
+  <mat-label>temperatures</mat-label>
+  <select matSelectControl required [(ngModel)]="selectedTempValue">
+    <option *ngFor="let temperature of temperatures" [value]="temperature.value">
+      {{ temperature.viewValue }}
+    </option>
+  </select>
+  <mat-error *ngIf="selectFormControl.hasError('required')">
+    This field is required
+  </mat-error>
+</mat-form-field>
+<!-- <p>You selected: {{selectedTempValue}}</p> -->
+
+<h4>CO2:</h4>
+<mat-form-field>
+  <mat-label>temperatures</mat-label>
+  <select matSelectControl required [(ngModel)]="selectedCO2Value">
+    <option *ngFor="let temperature of temperatures" [value]="temperature.value">
+      {{ temperature.viewValue }}
+    </option>
+  </select>
+  <mat-error *ngIf="selectFormControl.hasError('required')">
+    This field is required
+  </mat-error>
+</mat-form-field>
+<!-- <p>You selected: {{selectedCO2Value}}</p> -->
+
+<h4>Noise:</h4>
+<mat-form-field>
+  <mat-label>temperatures</mat-label>
+  <select matSelectControl required [(ngModel)]="selectedNoiseValue">
+    <option *ngFor="let temperature of temperatures" [value]="temperature.value">
+      {{ temperature.viewValue }}
+    </option>
+  </select>
+  <mat-error *ngIf="selectFormControl.hasError('required')">
+    This field is required
+  </mat-error>
+</mat-form-field>
+<!-- <p>You selected: {{selectedNoiseValue}}</p> -->
+</div>
+</div>
