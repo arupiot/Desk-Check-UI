@@ -17,7 +17,7 @@ export class FilterComponent implements OnInit {
     { value: 4, viewValue: 4},
     { value: 5, viewValue: 5},
   ];
-  temperatures: temperature[] = [
+  OnOffs: OnOff[] = [
     { value: true, viewValue: "On"},
     { value: false, viewValue: "Off"},
   ];
@@ -33,6 +33,9 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
   }
+  ChangeButton(selectedFloorValue){
+    console.log(selectedFloorValue);
+  }
 
 }
 
@@ -40,7 +43,7 @@ export interface Floor {
   value: number;
   viewValue: number;
 }
-export interface temperature {
+export interface OnOff {
   value: Boolean;
   viewValue: string;
 }
