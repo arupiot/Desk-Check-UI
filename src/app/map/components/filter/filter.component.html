@@ -1,72 +1,53 @@
-
-<!-- <h4>Basic mat-select</h4>
-<mat-form-field>
-  <mat-label>Favorite Brands</mat-label>
-  <mat-select [formControl]="brandControl">
-    <mat-option *ngFor="let brand of brands" [value]="brand.value">
-      {{ brand.viewValue }}
-    </mat-option>
-  </mat-select>
-  <mat-error *ngIf="brandControl.hasError('required')">Please choose a brand</mat-error>
-</mat-form-field>
-<p>You selected: {{selected}}</p> -->
-
 <div class="all">
 <h4>Select Floor:</h4>
-<!-- <mat-form-field> -->
-  <!-- <mat-label>Floors</mat-label> -->
-  <select matSelectControl required [(ngModel)]="selectedFloorValue">
+  <select (change)="ChangeFloorButton(selectedFloorValue)" matSelectControl required [(ngModel)]="selectedFloorValue">
     <option *ngFor="let floor of floors" [value]="floor.value">
       {{ floor.viewValue }}
     </option>
   </select>
-  <!-- <mat-error *ngIf="selectFormControl.hasError('required')">
-    This field is required
-  </mat-error> -->
-<!-- </mat-form-field> -->
-<!-- <p>You selected: {{selectedFloorValue}}</p> -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-<div *ngIf="isFM===true">You are a member of FM. 
+
+<div *ngIf="isFM===true">
 <h4>Temperature:</h4>
-<!-- <mat-form-field> -->
-  <!-- <mat-label>OnOffs</mat-label> -->
-  <select matSelectControl required [(ngModel)]="selectedTempValue">
+  <select (change)="ChangeTempButton(selectedTempValue)" matSelectControl required [(ngModel)]="selectedTempValue">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>
   </select>
-  <!-- <mat-error *ngIf="selectFormControl.hasError('required')">
-    This field is required
-  </mat-error> -->
-<!-- </mat-form-field> -->
-<!-- <p>You selected: {{selectedTempValue}}</p> -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
+  
 <h4>CO2:</h4>
-<!-- <mat-form-field> -->
-  <!-- <mat-label>OnOffs</mat-label> -->
-  <select matSelectControl required [(ngModel)]="selectedCO2Value">
+  <select (change)="ChangeCO2Button(selectedCO2Value)" matSelectControl required [(ngModel)]="selectedCO2Value">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>
   </select>
-  <!-- <mat-error *ngIf="selectFormControl.hasError('required')">
-    This field is required
-  </mat-error> -->
-<!-- </mat-form-field> -->
-<!-- <p>You selected: {{selectedCO2Value}}</p> -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
 <h4>Noise:</h4>
-<!-- <mat-form-field> -->
-  <!-- <mat-label>OnOffs</mat-label> -->
-  <select matSelectControl required [(ngModel)]="selectedNoiseValue">
+  <select (change)="ChangeNoiseButton(selectedNoiseValue)" matSelectControl required [(ngModel)]="selectedNoiseValue">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>
   </select>
-  <!-- <mat-error *ngIf="selectFormControl.hasError('required')">
-    This field is required
-  </mat-error> -->
-<!-- </mat-form-field> -->
-<!-- <p>You selected: {{selectedNoiseValue}}</p> -->
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
 </div>

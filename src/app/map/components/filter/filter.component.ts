@@ -33,8 +33,17 @@ export class FilterComponent implements OnInit {
 
   ngOnInit() {
   }
-  ChangeButton(selectedFloorValue){
+  ChangeFloorButton(selectedFloorValue){
     console.log(selectedFloorValue);
+  }
+  ChangeTempButton(selectedTempValue){
+    console.log(selectedTempValue);
+  }
+  ChangeCO2Button(selectedCO2Value){
+    console.log(selectedCO2Value);
+  }
+  ChangeNoiseButton(selectedNoiseValue){
+    console.log(selectedNoiseValue);
   }
 
 }
