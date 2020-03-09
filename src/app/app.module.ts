@@ -13,12 +13,14 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { ArupLogoComponent } from './core/components/arup-logo/arup-logo.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './core/components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ArupLogoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
