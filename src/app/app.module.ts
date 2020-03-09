@@ -14,6 +14,7 @@ import { ArupLogoComponent } from './core/components/arup-logo/arup-logo.compone
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './core/components/login/login.component';
+import { ReportProblemComponent } from './core/components/report-problem/report-problem.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LoginComponent } from './core/components/login/login.component';
     HeaderComponent,
     ArupLogoComponent,
     LoginComponent,
+    ReportProblemComponent,
   ],
   imports: [
     BrowserModule,
