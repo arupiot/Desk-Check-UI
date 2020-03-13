@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 
+import { OnOff } from '../../models/OnOff.model';
+import {Floor} from '../../models/floor.model';
+
 
 @Component({
   selector: 'app-filter',
@@ -48,11 +51,5 @@ export class FilterComponent implements OnInit {
 
 }
 
-export interface Floor {
-  value: number;
-  viewValue: number;
-}
-export interface OnOff {
-  value: Boolean;
-  viewValue: string;
-}
+
+
