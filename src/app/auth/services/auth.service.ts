@@ -43,35 +43,39 @@ export class AuthService {
   }
 
    async getUser(): Promise<User> {
-    let graphClient = Client.init({
-      // Initialize the Graph client with an auth
-      // provider that requests the token from the
-      // auth service
-      authProvider: async(done) => {
-        let token = await this.getAccessToken()
-          .catch((err) => {
-            done(err, null)
-          });
+    try {
+      let graphClient = Client.init({
+        // Initialize the Graph client with an auth
+        // provider that requests the token from the
+        // auth service
+        authProvider: async(done) => {
+          let token = await this.getAccessToken()
+            .catch((err) => {
+              done(err, null)
+            });
 
-        if (token) done(null, token)
-        else done("Could not get an access token", null);
-      }
-    });
+          if (token) done(null, token)
+          else done("Could not get an access token", null);
+        }
+      });
 
-    // Get the user from Graph (GET /me)
-    let graphUser = await graphClient.api('/me').get();
+      // Get the user from Graph (GET /me)
+      let graphUser = await graphClient.api('/me').get();
 
-    if (graphUser) {
-      this.authenticated = true;
-      let user = new User();
-      user.displayName = graphUser.displayName;
-      // Prefer the mail property, but fall back to the userPrincipalName
-      user.email = graphUser.mail || graphUser.userPrincipalName;
-      user.isFm = graphUser.jobTitle === "Facilities Manager"; // not 100% sure what the full title of the job is, but that will do for now
+      if (graphUser) {
+        this.authenticated = true;
+        let user = new User();
+        user.displayName = graphUser.displayName;
+        // Prefer the mail property, but fall back to the userPrincipalName
+        user.email = graphUser.mail || graphUser.userPrincipalName;
+        user.isFm = graphUser.jobTitle === "Facilities Manager"; // not 100% sure what the full title of the job is, but that will do for now
 
-      this.userService.setUser(user);
+        this.userService.setUser(user);
 
-      return user;
-    } else return null;
+        return user;
+      } else return null;
+    } catch(e) {
+      return null;
+    }
   }
 }

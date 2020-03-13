@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DeskServiceService } from '../../../core/services/deskService/desk-service.service';
-import { Desk } from '../../../core/models/Desk.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map-page',
@@ -10,22 +7,9 @@ import { Router } from '@angular/router';
 })
 export class MapPageComponent implements OnInit {
 
-  constructor(
-    private deskService: DeskServiceService,
-    private router: Router
-    ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getDesks();
-  }
-
-  getDesks() {
-    this.router.navigate(['/page-select']);
-    // this.deskService.getAll().subscribe(res => {
-    //   console.log(res);
-    // }, err => {
-    //   console.log(err);
-    // });
   }
 
 }

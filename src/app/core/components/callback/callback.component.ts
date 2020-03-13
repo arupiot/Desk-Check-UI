@@ -22,6 +22,13 @@ export class CallbackComponent implements OnInit {
 
     this.userService.isFM.subscribe(isFM => {
       const navigateTo = isFM ? '/page-select' : '/map';
+      window.location.href = "http://localhost:4200" + navigateTo; // THIS WILL NEED TO BE UPDATED TO THE URL OF THE LIVE SITE WHEN DEPLOYED
+    });
+  }
+
+  async backup() {
+    this.userService.isFM.subscribe(isFM => {
+      const navigateTo = isFM ? '/page-select' : '/map';
       this.router.navigate([navigateTo]);
     });
   }

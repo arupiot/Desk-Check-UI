@@ -7,7 +7,6 @@ import { CallbackComponent } from './core/components/callback/callback.component
 
 // Guards
 import { AuthGuard } from './auth/guards/auth.guard';
-import { LoggedInGuard } from './auth/guards/logged-in.guard';
 import { FmGuard } from './core/guard/fm/fm.guard';
 
 
@@ -15,7 +14,6 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    // canActivate: [LoggedInGuard] // This guard is mainly here as a precaution, it is unlikely that the user could get here when authenticated, but just incase
   }, {
     path: 'callback',
     component: CallbackComponent
