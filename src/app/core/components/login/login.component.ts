@@ -15,13 +15,13 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.signIn()
-    .then(d => {
-      if (this.authService.authenticated) this.router.navigate(['/page-select']);
-    })
-    .catch(e => {
-      console.log("error logging in:", e);
-    });
+    // this.authService.signIn()
+    // .then(d => {
+      // if (this.authService.authenticated) this.router.navigate(['/page-select']);
+    // })
+    // .catch(e => {
+    //   console.log("error logging in:", e);
+    // });
   }
 
 }

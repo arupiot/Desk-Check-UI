@@ -25,6 +25,7 @@ import { ReportProblemComponent } from './core/components/report-problem/report-
     ReportProblemComponent,
   ],
   imports: [
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

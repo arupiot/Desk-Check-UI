@@ -13,21 +13,21 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    canActivate: [LoggedInGuard] // This guard is mainly here as a precaution, it is unlikely that the user could get here when authenticated, but just incase
+    // canActivate: [LoggedInGuard] // This guard is mainly here as a precaution, it is unlikely that the user could get here when authenticated, but just incase
   },
   {
     path: 'dashboard',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }, {
     path: 'map',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./map/map.module').then(m => m.MapModule)
   }, {
     path: 'page-select',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./page-select/page-select.module').then(m => m.PageSelectModule)
   }
