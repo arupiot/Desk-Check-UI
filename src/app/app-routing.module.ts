@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { LoginComponent } from './core/components/login/login.component';
+import { CallbackComponent } from './core/components/callback/callback.component';
 
 // Guards
 import { AuthGuard } from './auth/guards/auth.guard';
@@ -13,9 +14,11 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
-    canActivate: [LoggedInGuard] // This guard is mainly here as a precaution, it is unlikely that the user could get here when authenticated, but just incase
-  },
-  {
+    // canActivate: [LoggedInGuard] // This guard is mainly here as a precaution, it is unlikely that the user could get here when authenticated, but just incase
+  }, {
+    path: 'callback',
+    component: CallbackComponent
+  }, {
     path: 'dashboard',
     canActivate: [AuthGuard],
     loadChildren: () =>

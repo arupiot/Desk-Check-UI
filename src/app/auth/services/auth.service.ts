@@ -5,6 +5,7 @@ import { Client } from '@microsoft/microsoft-graph-client';
 
 import { OAuthSettings } from '../OauthSettings';
 import { User } from '../../core/models/User.model';
+import { UserService } from '../../core/services/userService/user-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
 
   constructor(
     private msalService: MsalService,
+    private userService: UserService
   ) {
     this.authenticated = false;
     this.user = null;
@@ -22,13 +24,19 @@ export class AuthService {
 
   // Prompt the user to sign in and grant consent to the requested permission scopes
   async signIn(): Promise<void> {
-    let result = await this.msalService.loginPopup(OAuthSettings.scopes)
-      .catch(err => console.log("error in AuthService.signIn:", err));
+    this.msalService.loginRedirect(OAuthSettings.scopes)
+      // .catch(err => console.log("error in AuthService.signIn:", err));
 
-    if (result) {
-      this.authenticated = true;
-      this.user = await this.getUser();
-    }
+    // if (result) {
+      // this.authenticated = true;
+      // this.user = await this.getUser();
+      // console.log("this.user:", this.user);
+
+      // let token = await this.getAccessToken();
+      // console.log("token:", token);
+
+      // return;
+    // }
   }
 
   // Sign out
@@ -46,8 +54,9 @@ export class AuthService {
       return result;
   }
 
-  private async getUser(): Promise<User> {
-    if (!this.authenticated) return null;
+   async getUser(): Promise<User> {
+    console.log("getUser");
+    // if (!this.authenticated) return null;
 
     let graphClient = Client.init({
       // Initialize the Graph client with an auth
@@ -58,7 +67,7 @@ export class AuthService {
           .catch((err) => {
             done(err, null)
           });
-        
+
         if (token) done(null, token)
         else done("Could not get an access token", null);
       }
@@ -71,6 +80,11 @@ export class AuthService {
     user.displayName = graphUser.displayName;
     // Prefer the mail property, but fall back to the userPrincipalName
     user.email = graphUser.mail || graphUser.userPrincipalName;
+    user.isFm = graphUser.jobTitle === "Facilities Manager"; // not 100% sure what the full title of the job is, but that will do for now
+
+    console.log("graphuser:", graphUser)
+
+    this.userService.setUser(user);
 
     return user;
   }
