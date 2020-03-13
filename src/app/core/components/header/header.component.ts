@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/userService/user-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userService: UserService) { }
+
+  isFM: Observable<boolean>;
 
   ngOnInit(): void {
+    this.isFM = this.userService.isFM;
   }
 
 }

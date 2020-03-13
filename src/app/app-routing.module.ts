@@ -8,6 +8,7 @@ import { CallbackComponent } from './core/components/callback/callback.component
 // Guards
 import { AuthGuard } from './auth/guards/auth.guard';
 import { LoggedInGuard } from './auth/guards/logged-in.guard';
+import { FmGuard } from './core/guard/fm/fm.guard';
 
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
     component: CallbackComponent
   }, {
     path: 'dashboard',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, FmGuard],
     loadChildren: () =>
       import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }, {
@@ -30,7 +31,7 @@ const routes: Routes = [
       import('./map/map.module').then(m => m.MapModule)
   }, {
     path: 'page-select',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, FmGuard],
     loadChildren: () =>
       import('./page-select/page-select.module').then(m => m.PageSelectModule)
   }
