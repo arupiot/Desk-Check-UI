@@ -11,7 +11,6 @@ export class FmGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log()
       if (localStorage.getItem("isFM") === "true") return true;
       else {
         this.router.navigate(['/map']);

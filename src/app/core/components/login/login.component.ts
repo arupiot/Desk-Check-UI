@@ -13,9 +13,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {
-    console.log("first hash check:", location.hash);
-   }
+  ) { }
 
   ngOnInit(): void {
     if (!this.authService.authenticated) this.authService.signIn();
