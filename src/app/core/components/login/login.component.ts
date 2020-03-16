@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +11,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.authService.signIn()
-    .then(d => {
-      if (this.authService.authenticated) this.router.navigate(['/page-select']);
-    })
-    .catch(e => {
-      console.log("error logging in:", e);
-    });
+    if (!this.authService.authenticated) this.authService.signIn();
   }
 
 }

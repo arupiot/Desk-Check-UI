@@ -1,1 +1,53 @@
-<p>filter works!</p>
+<div class="all">
+<h4>Select Floor:</h4>
+  <select (change)="ChangeFloorButton(selectedFloorValue)" matSelectControl required [(ngModel)]="selectedFloorValue">
+    <option *ngFor="let floor of floors" [value]="floor.value">
+      {{ floor.viewValue }}
+    </option>
+  </select>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+<div *ngIf="isFM===true">
+<h4>Temperature:</h4>
+  <select (change)="ChangeTempButton(selectedTempValue)" matSelectControl required [(ngModel)]="selectedTempValue">
+    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      {{ OnOff.viewValue }}
+    </option>
+  </select>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  
+<h4>CO2:</h4>
+  <select (change)="ChangeCO2Button(selectedCO2Value)" matSelectControl required [(ngModel)]="selectedCO2Value">
+    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      {{ OnOff.viewValue }}
+    </option>
+  </select>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+<h4>Noise:</h4>
+  <select (change)="ChangeNoiseButton(selectedNoiseValue)" matSelectControl required [(ngModel)]="selectedNoiseValue">
+    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      {{ OnOff.viewValue }}
+    </option>
+  </select>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+</div>
