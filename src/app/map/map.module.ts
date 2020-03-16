@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+
+import { environment } from '../../environments/environment';
+
 import {
   MatButtonModule
 } from '@angular/material/button';
@@ -21,6 +25,9 @@ import { FloorplanComponent } from './components/floorplan/floorplan.component';
     CommonModule,
     MapRoutingModule,
     MatButtonModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: environment.mapbox.accessToken
+    })
   ]
 })
 export class MapModule { }

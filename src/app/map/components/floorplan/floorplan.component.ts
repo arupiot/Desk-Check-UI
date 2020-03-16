@@ -16,9 +16,12 @@ export class FloorplanComponent implements OnInit {
     private mapService: MapService,
   ) { }
 
+  geoJson: Object;
+
   ngOnInit() {
     this.mapService.getSingle(1).subscribe(res => {
       console.log("res:", res);
+      this.geoJson = res;
     }, err => {
       console.log("err:", err);
     });
