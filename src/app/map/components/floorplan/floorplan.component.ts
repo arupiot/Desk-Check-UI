@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MapService } from '../../services/map/map.service';
+
 import { environment } from 'src/environments/environment';
 
-import * as mapboxgl from 'mapbox-gl';
+// import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-floorplan',
@@ -10,21 +12,15 @@ import * as mapboxgl from 'mapbox-gl';
   styleUrls: ['./floorplan.component.scss']
 })
 export class FloorplanComponent implements OnInit {
-  map: mapboxgl.Map;
-  style = 'mapbox://styles/mapbox/streets-v11';
-  lat = 37.75;
-  lng = -122.41;
-  token: string = mapboxgl.accessToken;
-  constructor() { }
+  constructor(
+    private mapService: MapService,
+  ) { }
+
   ngOnInit() {
-    this.token = environment.mapbox.accessToken;
-      this.map = new mapboxgl.Map({
-        container: 'map',
-        style: this.style,
-        zoom: 13,
-        center: [this.lng, this.lat]
+    this.mapService.getSingle(1).subscribe(res => {
+      console.log("res:", res);
+    }, err => {
+      console.log("err:", err);
     });
-    // Add map controls
-    this.map.addControl(new mapboxgl.NavigationControl());
   }
 }

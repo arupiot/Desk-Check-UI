@@ -14,7 +14,6 @@ export class MapPageComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.getDesks();
   }
 
   getDesks() {
