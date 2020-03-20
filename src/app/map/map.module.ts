@@ -5,10 +5,6 @@ import {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-
-import { environment } from '../../environments/environment';
-
 import {
   MatButtonModule
 } from '@angular/material/button';
@@ -29,9 +25,6 @@ import { FloorplanComponent } from './components/floorplan/floorplan.component';
     CommonModule,
     MapRoutingModule,
     MatButtonModule,
-    NgxMapboxGLModule.withConfig({
-      accessToken: environment.mapbox.accessToken
-    }),
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
