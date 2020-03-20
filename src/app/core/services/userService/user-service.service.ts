@@ -22,8 +22,8 @@ export class UserService {
 
   public setUser(user: User): void {
     this.currentUser = user;
-    this.setIsFM(this.currentUser.isFm); // Comment out this line when testing the FM role
-    // this.setIsFM(true); // Uncomment this line when testing the FM role
+    const defaultFM: boolean = false; // Change this to true to enable FM view during development
+    this.setIsFM(defaultFM ? true : this.currentUser.isFm);
   }
   public getUser(): User {
     return this.currentUser;
