@@ -4,6 +4,9 @@ import {FormControl, Validators} from '@angular/forms';
 import { OnOff } from '../../models/OnOff.model';
 import {Floor} from '../../models/floor.model';
 
+import { UserService } from '../../../core/services/userService/user-service.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-filter',
@@ -11,6 +14,12 @@ import {Floor} from '../../models/floor.model';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
+  constructor(
+    private userService: UserService
+  ) { }
+
+  isFM: Observable<boolean>;
+
   brandControl = new FormControl('', [Validators.required]);
   selectFormControl = new FormControl('', Validators.required);
   floors: Floor[] = [
@@ -29,12 +38,9 @@ export class FilterComponent implements OnInit {
   selectedCO2Value = undefined;
   selectedNoiseValue = undefined;
   selected = undefined;
-  isFM: Boolean=true;
-
-  
-  constructor() { }
 
   ngOnInit() {
+    this.isFM = this.userService.isFM;
   }
   ChangeFloorButton(selectedFloorValue){
     console.log(selectedFloorValue);

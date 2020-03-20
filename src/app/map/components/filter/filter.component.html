@@ -12,7 +12,7 @@
   <br>
 
 
-<div *ngIf="isFM===true">
+<div *ngIf="isFM | async">
 <h4>Temperature:</h4>
   <select (change)="ChangeTempButton(selectedTempValue)" matSelectControl required [(ngModel)]="selectedTempValue">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
@@ -25,7 +25,7 @@
   <br>
   <br>
 
-  
+
 <h4>CO2:</h4>
   <select (change)="ChangeCO2Button(selectedCO2Value)" matSelectControl required [(ngModel)]="selectedCO2Value">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
