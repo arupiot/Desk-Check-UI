@@ -22,7 +22,7 @@ export class UserService {
 
   public setUser(user: User): void {
     this.currentUser = user;
-    const defaultFM: boolean = false; // Change this to true to enable FM view during development
+    const defaultFM: boolean = true; // Change this to true to enable FM view during development
     this.setIsFM(defaultFM ? true : this.currentUser.isFm);
   }
   public getUser(): User {
