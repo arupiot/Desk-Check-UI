@@ -1,4 +1,6 @@
 <div class="fullscreen">
-    <app-filter></app-filter>
+    <app-filter
+        (filters)="updateFilters($event)"
+    ></app-filter>
     <app-floorplan class="add-height"></app-floorplan>
 </div>

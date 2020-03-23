@@ -1,6 +1,6 @@
 <div class="all">
 <h4>Select Floor:</h4>
-  <select (change)="ChangeFloorButton(selectedFloorValue)" matSelectControl required [(ngModel)]="selectedFloorValue">
+  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.floor">
     <option *ngFor="let floor of floors" [value]="floor.value">
       {{ floor.viewValue }}
     </option>
@@ -14,7 +14,7 @@
 
 <div *ngIf="isFM | async">
 <h4>Temperature:</h4>
-  <select (change)="ChangeTempButton(selectedTempValue)" matSelectControl required [(ngModel)]="selectedTempValue">
+  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.temp">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>
@@ -27,7 +27,7 @@
 
 
 <h4>CO2:</h4>
-  <select (change)="ChangeCO2Button(selectedCO2Value)" matSelectControl required [(ngModel)]="selectedCO2Value">
+  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.CO2">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>
@@ -39,7 +39,7 @@
   <br>
 
 <h4>Noise:</h4>
-  <select (change)="ChangeNoiseButton(selectedNoiseValue)" matSelectControl required [(ngModel)]="selectedNoiseValue">
+  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.noise">
     <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
       {{ OnOff.viewValue }}
     </option>

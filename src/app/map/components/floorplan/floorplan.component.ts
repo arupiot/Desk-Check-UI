@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { MapService } from '../../services/map/map.service';
 
 import { environment } from 'src/environments/environment';
 
 import * as mapboxgl from 'mapbox-gl';
+import { Filters } from '../../models/filters.model';
 
 @Component({
   selector: 'app-floorplan',
@@ -12,6 +13,8 @@ import * as mapboxgl from 'mapbox-gl';
   styleUrls: ['./floorplan.component.scss']
 })
 export class FloorplanComponent implements OnInit {
+  @Input() filters: Filters;
+
   constructor(
     private mapService: MapService,
   ) { }
