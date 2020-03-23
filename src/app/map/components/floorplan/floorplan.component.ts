@@ -20,7 +20,6 @@ export class FloorplanComponent implements OnInit {
   ) { }
 
   floor: number = 0;
-  inc = 10;
 
   geoJson: any;
   desks: Desk[];
@@ -55,7 +54,7 @@ export class FloorplanComponent implements OnInit {
       container: 'map',
       style: this.style,
       zoom: 19,
-      minZoom: 4,
+      minZoom: 18,
       maxZoom: 22,
       center: center.default,
       bearing: 325
@@ -148,6 +147,7 @@ export class FloorplanComponent implements OnInit {
     });
   }
 
+  inc = 10;
   placeExample() {
     this.map.on('mousedown', e => {
       console.log("lng:", e.lngLat.lng, "lat:", e.lngLat.lat);
