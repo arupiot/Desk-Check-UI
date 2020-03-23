@@ -1,53 +1,53 @@
-<div class="all">
-<h4>Select Floor:</h4>
-  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.floor">
-    <option *ngFor="let floor of floors" [value]="floor.value">
-      {{ floor.viewValue }}
-    </option>
-  </select>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+<div class="all" *ngIf="filtered">
+  <h4>Select Floor:</h4>
+    <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.floor">
+      <option *ngFor="let floor of floors" [value]="floor.value">
+        {{ floor.viewValue }}
+      </option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
-<div *ngIf="isFM | async">
-<h4>Temperature:</h4>
-  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.temp">
-    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
-      {{ OnOff.viewValue }}
-    </option>
-  </select>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  <div *ngIf="isFM | async">
+  <h4>Temperature:</h4>
+    <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.temp">
+      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+        {{ OnOff.viewValue }}
+      </option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 
-<h4>CO2:</h4>
-  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.CO2">
-    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
-      {{ OnOff.viewValue }}
-    </option>
-  </select>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  <h4>CO2:</h4>
+    <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.CO2">
+      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+        {{ OnOff.viewValue }}
+      </option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
-<h4>Noise:</h4>
-  <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.noise">
-    <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
-      {{ OnOff.viewValue }}
-    </option>
-  </select>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-</div>
+  <h4>Noise:</h4>
+    <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.noise">
+      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+        {{ OnOff.viewValue }}
+      </option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
 </div>

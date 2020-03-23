@@ -13,8 +13,15 @@ export class MapPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateFilters(filter: Filters): void {
-    console.log("filter:", filter);
+  filters: Filters = {
+    floor: 0,
+    temp: false,
+    CO2: false,
+    noise: false
+  };
+
+  updateFilters(f: Filters): void {
+    this.filters = Object.assign({}, f);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 
 import { OnOff } from '../../models/OnOff.model';
@@ -16,6 +16,7 @@ import { Filters } from '../../models/filters.model';
 })
 export class FilterComponent implements OnInit {
   @Output() filters = new EventEmitter<Filters>();
+  @Input() defaultFilters: Filters;
 
   constructor(
     private userService: UserService
@@ -38,18 +39,13 @@ export class FilterComponent implements OnInit {
     { value: false, viewValue: "Off"},
   ];
 
-  filtered: Filters = {
-    floor: 0,
-    temp: false,
-    CO2: false,
-    noise: false
-  }
+  filtered: Filters;
 
   ngOnInit() {
     this.isFM = this.userService.isFM;
+    this.filtered = this.defaultFilters;
   }
   filterUpdate(): void {
-    console.log("emit");
     this.filters.emit(this.filtered);
   }
 }
