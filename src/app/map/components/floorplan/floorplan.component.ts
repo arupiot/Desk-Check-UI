@@ -18,13 +18,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
   @Input() filters: Filters;
 
   ngOnChanges() {
-    console.log("filters:", this.filters);
-
-    this.mapService.getSingle(this.filters.floor).subscribe(res => {
-      this.geoJson = res;
-
-      if (this.desks) this.drawMap();
-    });
+    this.updateMapDesk();
   }
 
   constructor(
@@ -46,16 +40,16 @@ export class FloorplanComponent implements OnInit, OnChanges {
   map: mapboxgl.Map;
   style: string = 'mapbox://styles/mapbox/light-v9';
 
-  checkFilters() {
-    console.log("filters:", this.filters);
+  ngOnInit() {
+    this.updateMapDesk();
   }
 
-  ngOnInit() {
+  updateMapDesk() {
     this.mapService.getSingle(this.filters.floor).subscribe(res => {
       this.geoJson = res;
 
       this.deskService.getAll().subscribe(res => {
-        this.desks = res;
+        this.desks = res.filter(d => d.floor === +this.filters.floor);
 
         this.drawMap();
       });
