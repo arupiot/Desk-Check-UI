@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { MapService } from '../../services/map/map.service';
 import { DeskService } from '../../services/desk/desk.service';
@@ -6,6 +6,7 @@ import { DeskService } from '../../services/desk/desk.service';
 import { environment } from 'src/environments/environment';
 
 import * as mapboxgl from 'mapbox-gl';
+import { Filters } from '../../models/filters.model';
 import { Desk } from 'src/app/core/models/Desk.model';
 
 @Component({
@@ -13,7 +14,13 @@ import { Desk } from 'src/app/core/models/Desk.model';
   templateUrl: './floorplan.component.html',
   styleUrls: ['./floorplan.component.scss']
 })
-export class FloorplanComponent implements OnInit {
+export class FloorplanComponent implements OnInit, OnChanges {
+  @Input() filters: Filters;
+
+  ngOnChanges() {
+    this.updateMapDesk();
+  }
+
   constructor(
     private mapService: MapService,
     private deskService: DeskService,
@@ -24,6 +31,8 @@ export class FloorplanComponent implements OnInit {
   geoJson: any;
   desks: Desk[];
 
+  oldFilters: Filters;
+
   rotation: number = this.toRadians(22); // anticlockwise rotation, radian conversion handled by the function
 
   deskSize: number = 0.000005;
@@ -32,11 +41,15 @@ export class FloorplanComponent implements OnInit {
   style: string = 'mapbox://styles/mapbox/light-v9';
 
   ngOnInit() {
-    this.mapService.getSingle(this.floor).subscribe(res => {
+    this.updateMapDesk();
+  }
+
+  updateMapDesk() {
+    this.mapService.getSingle(this.filters.floor).subscribe(res => {
       this.geoJson = res;
 
       this.deskService.getAll().subscribe(res => {
-        this.desks = res;
+        this.desks = res.filter(d => d.floor === +this.filters.floor);
 
         this.drawMap();
       });

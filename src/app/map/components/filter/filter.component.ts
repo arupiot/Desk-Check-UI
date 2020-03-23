@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 
 import { OnOff } from '../../models/OnOff.model';
@@ -6,6 +6,7 @@ import {Floor} from '../../models/floor.model';
 
 import { UserService } from '../../../core/services/userService/user-service.service';
 import { Observable } from 'rxjs';
+import { Filters } from '../../models/filters.model';
 
 
 @Component({
@@ -14,6 +15,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
+  @Output() filters = new EventEmitter<Filters>();
+  @Input() defaultFilters: Filters;
+
   constructor(
     private userService: UserService
   ) { }
@@ -23,39 +27,25 @@ export class FilterComponent implements OnInit {
   brandControl = new FormControl('', [Validators.required]);
   selectFormControl = new FormControl('', Validators.required);
   floors: Floor[] = [
-    { value: 1, viewValue: 1},
-    { value: 2, viewValue: 2},
+    { value: 0, viewValue: 0 },
+    { value: 1, viewValue: 1 },
+    { value: 2, viewValue: 2 },
     { value: 3, viewValue: 3 },
-    { value: 4, viewValue: 4},
-    { value: 5, viewValue: 5},
+    { value: 4, viewValue: 4 },
+    { value: 5, viewValue: 5 },
   ];
   OnOffs: OnOff[] = [
     { value: true, viewValue: "On"},
     { value: false, viewValue: "Off"},
   ];
-  selectedFloorValue = undefined;
-  selectedTempValue = undefined;
-  selectedCO2Value = undefined;
-  selectedNoiseValue = undefined;
-  selected = undefined;
+
+  filtered: Filters;
 
   ngOnInit() {
     this.isFM = this.userService.isFM;
+    this.filtered = this.defaultFilters;
   }
-  ChangeFloorButton(selectedFloorValue){
-    console.log(selectedFloorValue);
+  filterUpdate(): void {
+    this.filters.emit(this.filtered);
   }
-  ChangeTempButton(selectedTempValue){
-    console.log(selectedTempValue);
-  }
-  ChangeCO2Button(selectedCO2Value){
-    console.log(selectedCO2Value);
-  }
-  ChangeNoiseButton(selectedNoiseValue){
-    console.log(selectedNoiseValue);
-  }
-
 }
-
-
-
