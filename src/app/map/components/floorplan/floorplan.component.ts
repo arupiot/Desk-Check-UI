@@ -92,7 +92,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
           },
           paint: {
             'line-color': '#888',
-            'line-width': 4
+            'line-width': 2
           }
       });
     });
@@ -106,7 +106,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
   drawDesks() {
     this.desks.forEach(d => {
-      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. cY-this.deskSize)
+      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. `cY-this.deskSize`)
       // To find the rotation of each desk https://math.stackexchange.com/questions/270194/how-to-find-the-vertices-angle-after-rotation
       const cX: number = d.x;// The x coordinate of the centre point of the desk
       const cY: number = d.y;// The y coordinate of the centre point of the desk
@@ -161,52 +161,30 @@ export class FloorplanComponent implements OnInit, OnChanges {
   }
 
   calcColor(desk: Desk): string {
-    let value: number;
-    let range: number;
-    let bottomValue: number;
+    let range: number; // The size of the possible range of values for the sensor
+    let bottomValue: number; // The lowest possible value of the sensor
+    let adjusted : number;
+    let halfRange : number;
 
     if (this.filters.CO2) {
-      bottomValue = 400;
+      bottomValue = 200;
       range = 200;
-      value = (desk.cO2-bottomValue)/range;
+      adjusted = desk.cO2-bottomValue;
     } else if (this.filters.temp) {
       bottomValue = 15;
       range = 10;
-      value = (desk.temp-bottomValue)/range;
+      adjusted = desk.temp-bottomValue;
     } else return '#088';
 
-    let hue = ((1-value)*120).toString(10);
+    halfRange = range/2;
 
-    return this.hslToHex(hue,100,50);
+    const color : string = adjusted > halfRange ? this.percentageToHsl((adjusted-halfRange)/halfRange,120,0) : this.percentageToHsl(adjusted/halfRange,0,120);
+
+    return color;
   }
-
-  hslToHex(h, s, l) { // from https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex
-    h /= 360;
-    s /= 100;
-    l /= 100;
-    let r, g, b;
-    if (s === 0) {
-      r = g = b = l; // achromatic
-    } else {
-      const hue2rgb = (p, q, t) => {
-        if (t < 0) t += 1;
-        if (t > 1) t -= 1;
-        if (t < 1 / 6) return p + (q - p) * 6 * t;
-        if (t < 1 / 2) return q;
-        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-        return p;
-      };
-      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-      const p = 2 * l - q;
-      r = hue2rgb(p, q, h + 1 / 3);
-      g = hue2rgb(p, q, h);
-      b = hue2rgb(p, q, h - 1 / 3);
-    }
-    const toHex = x => {
-      const hex = Math.round(x * 255).toString(16);
-      return hex.length === 1 ? '0' + hex : hex;
-    };
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  percentageToHsl(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    return 'hsl(' + hue + ', 100%, 50%)';
   }
 
   inc = 10;
