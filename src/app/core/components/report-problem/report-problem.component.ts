@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {NotifService} from '../../services/notification/notif.service';
 @Component({
   selector: 'app-report-problem',
   templateUrl: './report-problem.component.html',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportProblemComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notifService : NotifService) {
+    
+   }
 
   ngOnInit(): void {
+  }
+  handleClick() {
+    this.notifService.sendNotif().subscribe(res=>{
+      console.log(res)
+    })
   }
 
 }

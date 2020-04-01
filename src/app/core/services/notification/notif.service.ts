@@ -9,9 +9,9 @@ export class NotifService {
 
   constructor(private http: HttpClient,
     ) { }
-  baseurl: string = "https://localhost:44363/user";
+  baseurl: string = "https://localhost:44363/user/";
 
-  sendNotif(){
+  sendNotif(): Observable<any> {
     const headerDict = {
       'Content': "Test Content",
       'Name': "Test Name",
