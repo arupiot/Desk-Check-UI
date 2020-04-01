@@ -15,6 +15,7 @@ import { ArupLogoComponent } from './core/components/arup-logo/arup-logo.compone
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './core/components/login/login.component';
 import { ReportProblemComponent } from './core/components/report-problem/report-problem.component';
+import { CallbackComponent } from './core/components/callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReportProblemComponent } from './core/components/report-problem/report-
     ArupLogoComponent,
     LoginComponent,
     ReportProblemComponent,
+    CallbackComponent,
   ],
   imports: [
     MatButtonModule,
@@ -32,7 +34,8 @@ import { ReportProblemComponent } from './core/components/report-problem/report-
     MsalModule.forRoot({
       clientID: OAuthSettings.appID,
       authority: "https://login.microsoftonline.com/arup.onmicrosoft.com",
-      redirectUri: "http://localhost:4200"
+      redirectUri: "http://localhost:4200/callback",
+      navigateToLoginRequestUrl: false,
     }),
   ],
   providers: [],

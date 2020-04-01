@@ -1,2 +1,10 @@
-<p>map-page works!</p>
-<button mat-raised-button color="primary" (click)="getDesks()">get Desks</button>
+<div class="fullscreen">
+    <app-filter
+        (filters)="updateFilters($event)"
+        [defaultFilters]="filters"
+    ></app-filter>
+    <app-floorplan
+        class="add-height"
+        [filters]="filters"
+    ></app-floorplan>
+</div>
