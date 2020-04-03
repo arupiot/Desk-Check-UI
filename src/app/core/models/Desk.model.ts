@@ -7,4 +7,5 @@ export interface Desk {
     y: number;
     registered: boolean;
     noise: number;
+    available: boolean;
 }
