@@ -92,7 +92,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
           },
           paint: {
             'line-color': '#888',
-            'line-width': 4
+            'line-width': 2
           }
       });
     });
@@ -106,7 +106,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
   drawDesks() {
     this.desks.forEach(d => {
-      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. cY-this.deskSize)
+      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. `cY-this.deskSize`)
       // To find the rotation of each desk https://math.stackexchange.com/questions/270194/how-to-find-the-vertices-angle-after-rotation
       const cX: number = d.x;// The x coordinate of the centre point of the desk
       const cY: number = d.y;// The y coordinate of the centre point of the desk
@@ -153,18 +153,44 @@ export class FloorplanComponent implements OnInit, OnChanges {
         source: 'desk' + d.deskID,
         layout: {},
         paint: {
-          'fill-color': '#088',
+          'fill-color': this.calcColor(d),
           'fill-opacity': 0.8
         }
       });
     });
   }
 
+  calcColor(desk: Desk): string {
+    let range: number; // The size of the possible range of values for the sensor
+    let bottomValue: number; // The lowest possible value of the sensor
+    let adjusted : number;
+    let halfRange : number;
+
+    if (this.filters.CO2) {
+      bottomValue = 400;
+      range = 200;
+      adjusted = desk.cO2-bottomValue;
+    } else if (this.filters.temp) {
+      bottomValue = 15;
+      range = 10;
+      adjusted = desk.temp-bottomValue;
+    } else return '#088';
+
+    halfRange = range/2;
+
+    const color : string = adjusted > halfRange ? this.percentageToHsl((adjusted-halfRange)/halfRange,120,0) : this.percentageToHsl(adjusted/halfRange,0,120);
+
+    return color;
+  }
+  percentageToHsl(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    return 'hsl(' + hue + ', 100%, 50%)';
+  }
+
   inc = 10;
   placeExample() {
     this.map.on('mousedown', e => {
       console.log("lng:", e.lngLat.lng, "lat:", e.lngLat.lat);
-      console.log();
 
       let d = {
         deskID: this.inc,

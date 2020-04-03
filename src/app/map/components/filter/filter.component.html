@@ -15,7 +15,7 @@
   <div *ngIf="isFM | async">
   <h4>Temperature:</h4>
     <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.temp">
-      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      <option *ngFor="let OnOff of OnOffs" [ngValue]="OnOff.value">
         {{ OnOff.viewValue }}
       </option>
     </select>
@@ -28,7 +28,7 @@
 
   <h4>CO2:</h4>
     <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.CO2">
-      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      <option *ngFor="let OnOff of OnOffs" [ngValue]="OnOff.value">
         {{ OnOff.viewValue }}
       </option>
     </select>
@@ -40,7 +40,7 @@
 
   <h4>Noise:</h4>
     <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.noise">
-      <option *ngFor="let OnOff of OnOffs" [value]="OnOff.value">
+      <option *ngFor="let OnOff of OnOffs" [ngValue]="OnOff.value">
         {{ OnOff.viewValue }}
       </option>
     </select>
