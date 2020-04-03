@@ -167,7 +167,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
     let halfRange : number;
 
     if (this.filters.CO2) {
-      bottomValue = 200;
+      bottomValue = 400;
       range = 200;
       adjusted = desk.cO2-bottomValue;
     } else if (this.filters.temp) {
