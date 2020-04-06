@@ -31,6 +31,8 @@ export class FloorplanComponent implements OnInit, OnChanges {
   geoJson: any;
   desks: Desk[];
 
+  loadFail: boolean = false;
+
   oldFilters: Filters;
 
   rotation: number = this.toRadians(22); // anticlockwise rotation, radian conversion handled by the function
@@ -57,6 +59,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
       });
     }, err => {
       console.log("err:", err);
+      this.loadFail = true;
     });
   }
 
