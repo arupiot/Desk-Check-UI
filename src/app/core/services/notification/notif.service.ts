@@ -11,10 +11,10 @@ export class NotifService {
     ) { }
   baseurl: string = "https://localhost:44363/user/";
 
-  sendNotif(): Observable<any> {
+  sendNotif(name: string, content: string): Observable<any> {
     const headerDict = {
-      'Content': "Test Content",
-      'Name': "Test Name",
+      'Name': name,
+      'Content': content,
     }
 
     const requestOptions = {

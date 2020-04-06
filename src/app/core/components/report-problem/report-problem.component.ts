@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NotifService} from '../../services/notification/notif.service';
+
+import { NotifService } from '../../services/notification/notif.service';
+import { UserService } from '../../services/userService/user-service.service';
+
 @Component({
   selector: 'app-report-problem',
   templateUrl: './report-problem.component.html',
@@ -7,16 +10,23 @@ import {NotifService} from '../../services/notification/notif.service';
 })
 export class ReportProblemComponent implements OnInit {
 
-  constructor(private notifService : NotifService) {
-    
-   }
+  constructor(
+    private notifService: NotifService,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
   }
   handleClick() {
-    this.notifService.sendNotif().subscribe(res=>{
-      console.log(res)
-    })
+    const content = prompt("Notification message");
+
+    const email = this.userService.getUser() ? this.userService.getUser().email : "deskcheck@arup.com";
+
+    if (content) {
+      this.notifService.sendNotif(email,content).subscribe(res=>{
+        console.log(res);
+      });
+    }
   }
 
 }
