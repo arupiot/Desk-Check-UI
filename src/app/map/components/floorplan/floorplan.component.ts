@@ -42,11 +42,11 @@ export class FloorplanComponent implements OnInit, OnChanges {
   map: mapboxgl.Map;
   style: string = 'mapbox://styles/mapbox/light-v9';
 
-  async ngOnInit() {
+  ngOnInit() {
     this.updateMapDesk();
   }
 
-  async updateMapDesk() {
+  updateMapDesk() {
     this.mapService.getSingle(this.filters.floor).subscribe(res => {
       this.geoJson = res;
 

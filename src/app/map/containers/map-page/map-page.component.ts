@@ -16,8 +16,7 @@ export class MapPageComponent implements OnInit {
   filters: Filters = {
     floor: 0,
     temp: false,
-    CO2: false,
-    noise: false
+    CO2: false
   };
 
   updateFilters(f: Filters): void {

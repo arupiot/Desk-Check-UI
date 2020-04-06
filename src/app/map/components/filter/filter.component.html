@@ -37,17 +37,5 @@
     <br>
     <br>
     <br>
-
-  <h4>Noise:</h4>
-    <select (change)="filterUpdate()" matSelectControl required [(ngModel)]="filtered.noise">
-      <option *ngFor="let OnOff of OnOffs" [ngValue]="OnOff.value">
-        {{ OnOff.viewValue }}
-      </option>
-    </select>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </div>
