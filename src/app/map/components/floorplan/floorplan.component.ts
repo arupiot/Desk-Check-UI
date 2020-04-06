@@ -37,14 +37,16 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
   deskSize: number = 0.000005;
 
+  updateTime: number = 10; // number of seconds between data updates
+
   map: mapboxgl.Map;
   style: string = 'mapbox://styles/mapbox/light-v9';
 
-  ngOnInit() {
+  async ngOnInit() {
     this.updateMapDesk();
   }
 
-  updateMapDesk() {
+  async updateMapDesk() {
     this.mapService.getSingle(this.filters.floor).subscribe(res => {
       this.geoJson = res;
 
@@ -77,6 +79,8 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
       this.drawDesks();
 
+      this.updateDeskColors();
+
       this.map.addSource('no8', {
         type: 'geojson',
         data: this.geoJson
@@ -92,7 +96,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
           },
           paint: {
             'line-color': '#888',
-            'line-width': 4
+            'line-width': 2
           }
       });
     });
@@ -104,24 +108,23 @@ export class FloorplanComponent implements OnInit, OnChanges {
     return angle * (Math.PI/180);
   }
 
+  calcPoint(x, y, cX, cY, adjust): number[] {
+    return [(((x-cX)*Math.cos(this.rotation))-((y-cY)*Math.sin(this.rotation-adjust)))+cX,((x-cX)*Math.sin(this.rotation))+((y-cY)*Math.cos(this.rotation-adjust))+cY];
+  }
+
   drawDesks() {
     this.desks.forEach(d => {
-      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. cY-this.deskSize)
+      // To make the desks actually square, divide the deskSize by 2 on points where deskSize is subtracted from cY (e.g. `cY-this.deskSize`)
       // To find the rotation of each desk https://math.stackexchange.com/questions/270194/how-to-find-the-vertices-angle-after-rotation
       const cX: number = d.x;// The x coordinate of the centre point of the desk
       const cY: number = d.y;// The y coordinate of the centre point of the desk
 
-      const adjustAngle = -53;
+      const adjustAngle = this.toRadians(-53);
 
-      const p1X: number = ((((cX-this.deskSize)-cX)*Math.cos(this.rotation))-(((cY-this.deskSize)-cY)*Math.sin(this.rotation-this.toRadians(adjustAngle))))+cX;
-      const p2X: number = ((((cX-this.deskSize)-cX)*Math.cos(this.rotation))-(((cY+this.deskSize)-cY)*Math.sin(this.rotation)))+cX;
-      const p3X: number = ((((cX+this.deskSize)-cX)*Math.cos(this.rotation))-(((cY+this.deskSize)-cY)*Math.sin(this.rotation)))+cX;
-      const p4X: number = ((((cX+this.deskSize)-cX)*Math.cos(this.rotation))-(((cY-this.deskSize)-cY)*Math.sin(this.rotation-this.toRadians(adjustAngle))))+cX;
-
-      const p1Y: number = (((cX-this.deskSize)-cX)*Math.sin(this.rotation))+(((cY-this.deskSize)-cY)*Math.cos(this.rotation-this.toRadians(adjustAngle)))+cY;
-      const p2Y: number = (((cX-this.deskSize)-cX)*Math.sin(this.rotation))+(((cY+this.deskSize)-cY)*Math.cos(this.rotation))+cY;
-      const p3Y: number = (((cX+this.deskSize)-cX)*Math.sin(this.rotation))+(((cY+this.deskSize)-cY)*Math.cos(this.rotation))+cY;
-      const p4Y: number = (((cX+this.deskSize)-cX)*Math.sin(this.rotation))+(((cY-this.deskSize)-cY)*Math.cos(this.rotation-this.toRadians(adjustAngle)))+cY;
+      const p1 = this.calcPoint(cX-this.deskSize,cY-this.deskSize,cX,cY,adjustAngle);
+      const p2 = this.calcPoint(cX-this.deskSize,cY+this.deskSize,cX,cY,0);
+      const p3 = this.calcPoint(cX+this.deskSize,cY+this.deskSize,cX,cY,0);
+      const p4 = this.calcPoint(cX+this.deskSize,cY-this.deskSize,cX,cY,adjustAngle);
 
       const data: any = {
         type: 'Feature',
@@ -132,11 +135,11 @@ export class FloorplanComponent implements OnInit, OnChanges {
           type: 'Polygon',
           coordinates: [
             [
-              [p1X,p1Y],
-              [p2X,p2Y],
-              [p3X,p3Y],
-              [p4X,p4Y],
-              [p1X,p1Y],
+              p1,
+              p2,
+              p3,
+              p4,
+              p1,
             ]
           ]
         }
@@ -153,18 +156,61 @@ export class FloorplanComponent implements OnInit, OnChanges {
         source: 'desk' + d.deskID,
         layout: {},
         paint: {
-          'fill-color': '#088',
+          'fill-color': this.calcColor(d),
           'fill-opacity': 0.8
         }
       });
     });
   }
 
+  updateDeskColors() {
+    window.setInterval(() => {
+      this.deskService.getAll()
+      .subscribe(res => {
+        this.desks = res.filter(d => d.floor === +this.filters.floor);
+
+        this.desks.forEach(d => {
+            const layerId = 'desk' + d.deskID;
+
+            this.map.setPaintProperty(layerId,'fill-color',this.calcColor(d));
+        });
+      });
+    }, this.updateTime*1000);
+  }
+
+  calcColor(desk: Desk): string {
+    let range: number; // The size of the possible range of values for the sensor
+    let bottomValue: number; // The lowest possible value of the sensor
+    let adjusted : number;
+    let halfRange : number;
+
+    if (this.filters.CO2) {
+      bottomValue = 400;
+      range = 200;
+      adjusted = desk.cO2-bottomValue;
+    } else if (this.filters.temp) {
+      bottomValue = 15;
+      range = 10;
+      adjusted = desk.temp-bottomValue;
+    } else {
+      return desk.available ? '#00ff00' : '#ff0000';
+    }
+
+    halfRange = range/2;
+
+    const color : string = adjusted > halfRange ? this.percentageToHsl((adjusted-halfRange)/halfRange,120,0) : this.percentageToHsl(adjusted/halfRange,0,120);
+
+    return color;
+  }
+  percentageToHsl(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    return 'hsl(' + hue + ', 100%, 50%)';
+  }
+
   inc = 10;
   placeExample() {
     this.map.on('mousedown', e => {
       console.log("lng:", e.lngLat.lng, "lat:", e.lngLat.lat);
-      console.log();
 
       let d = {
         deskID: this.inc,
