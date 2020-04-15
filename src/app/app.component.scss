@@ -1,0 +1,17 @@
+.FMButton{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+    align-self: flex-end;
+    margin-right: 1em;
+
+    position: fixed;
+    right: 0;
+    bottom: 2.5%;
+}
+.Content{
+    height: 90%;
+}
