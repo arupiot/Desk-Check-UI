@@ -28,8 +28,12 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
   floor: number = 0;
 
+  updateColorId: number;
+
   geoJson: any;
   desks: Desk[];
+
+  loadFail: boolean = false;
 
   oldFilters: Filters;
 
@@ -57,6 +61,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
       });
     }, err => {
       console.log("err:", err);
+      this.loadFail = true;
     });
   }
 
@@ -79,7 +84,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
 
       this.drawDesks();
 
-      this.updateDeskColors();
+      this.updateColorId = this.updateDeskColors();
 
       this.map.addSource('no8', {
         type: 'geojson',
@@ -164,7 +169,8 @@ export class FloorplanComponent implements OnInit, OnChanges {
   }
 
   updateDeskColors() {
-    window.setInterval(() => {
+    window.clearInterval(this.updateColorId); // Stop the previous interval so that there aren't multiple running at the same time causing the colours to change faster than every 10s
+    return window.setInterval(() => {
       this.deskService.getAll()
       .subscribe(res => {
         this.desks = res.filter(d => d.floor === +this.filters.floor);
