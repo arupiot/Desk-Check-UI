@@ -1,3 +1,11 @@
-<div class="map-container">
+<div *ngIf="geoJson; else loading" class="map-container">
     <div id="map"></div>
 </div>
+<ng-template #loading>
+    <div *ngIf="loadFail === false; else failed">
+        Loading map
+    </div>
+    <ng-template #failed>
+        Map loading failed. Check your internet connection
+    </ng-template>
+</ng-template>
