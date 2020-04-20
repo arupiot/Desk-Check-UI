@@ -207,7 +207,7 @@ export class FloorplanComponent implements OnInit, OnChanges {
     return 'hsl(' + hue + ', 100%, 50%)';
   }
 
-  inc = 10;
+  inc = 1000;
   placeExample() {
     this.map.on('mousedown', e => {
       console.log("lng:", e.lngLat.lng, "lat:", e.lngLat.lat);
@@ -268,6 +268,8 @@ export class FloorplanComponent implements OnInit, OnChanges {
           'fill-opacity': 0.8
         }
       });
+
+      this.deskService.add(this.filters.floor, d.x, d.y).subscribe(res => console.log("success", res));
     })
   }
 }
