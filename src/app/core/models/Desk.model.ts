@@ -6,6 +6,5 @@ export interface Desk {
     x: number;
     y: number;
     registered: boolean;
-    noise: number;
     available: boolean;
 }
